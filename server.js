@@ -12,6 +12,10 @@ app.use(function (req, res/*, next*/) {
   res.redirect('/');
 });
 
+app.get('/',function(req,res){
+  res.send("Hello World");
+})
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
