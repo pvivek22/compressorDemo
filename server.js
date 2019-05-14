@@ -8,9 +8,9 @@ const iotHubClient = require('./IoThub/iot-hub.js');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function (req, res/*, next*/) {
-  res.redirect('/');
-});
+// app.use(function (req, res/*, next*/) {
+//   res.redirect('/');
+// });
 
 app.get('/hello',function(req,res){
   res.send("Hello World");
