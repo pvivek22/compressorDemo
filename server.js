@@ -12,7 +12,7 @@ app.use(function (req, res/*, next*/) {
   res.redirect('/');
 });
 
-app.get('/',function(req,res){
+app.get('/hello',function(req,res){
   res.send("Hello World");
 })
 
