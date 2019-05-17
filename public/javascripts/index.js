@@ -69,8 +69,7 @@ $(document).ready(function () {
   var ws = new WebSocket('wss://' + location.host);
   ws.onopen = function () {
     console.log('Successfully connect WebSocket');
-  }
-  ws.onmessage = function (message) {
+    ws.onmessage = function (message) {
     console.log('receive message' + message.data);
     try {
       var obj = JSON.parse(message.data);
@@ -99,4 +98,6 @@ $(document).ready(function () {
       console.error(err);
     }
   }
+  }
+  
 });
