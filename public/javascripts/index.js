@@ -69,34 +69,36 @@ $(document).ready(function () {
   var ws = new WebSocket('wss://' + location.host);
   ws.onopen = function () {
     console.log('Successfully connect WebSocket');
-  }
-  ws.onmessage = function (message) {
-    console.log('receive message' + message.data);
-    try {
-      var obj = JSON.parse(message.data);
-      if(!obj.time || !obj.temperature) {
-        return;
-      }
-      timeData.push(obj.time);
-      temperatureData.push(obj.temperature);
-      // only keep no more than 50 points in the line chart
-      const maxLen = 50;
-      var len = timeData.length;
-      if (len > maxLen) {
-        timeData.shift();
-        temperatureData.shift();
-      }
 
-      if (obj.humidity) {
-        humidityData.push(obj.humidity);
+    ws.onmessage = function (message) {
+      console.log('receive message' + message.data);
+      try {
+        var obj = JSON.parse(message.data);
+        if(!obj.time || !obj.temperature) {
+          return;
+        }
+        timeData.push(obj.time);
+        temperatureData.push(obj.temperature);
+        // only keep no more than 50 points in the line chart
+        const maxLen = 50;
+        var len = timeData.length;
+        if (len > maxLen) {
+          timeData.shift();
+          temperatureData.shift();
+        }
+  
+        if (obj.humidity) {
+          humidityData.push(obj.humidity);
+        }
+        if (humidityData.length > maxLen) {
+          humidityData.shift();
+        }
+  
+        myLineChart.update();
+      } catch (err) {
+        console.error(err);
       }
-      if (humidityData.length > maxLen) {
-        humidityData.shift();
-      }
-
-      myLineChart.update();
-    } catch (err) {
-      console.error(err);
     }
   }
+  
 });
